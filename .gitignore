@@ -1,0 +1,22 @@
+# Ignore Unreal build files
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+.vscode/
+.vs/
+Build/
+Content/
+Plugins/
+
+# Ignore IDE/project clutter
+*.suo
+*.user
+*.userprefs
+*.VC.db
+*.sdf
+*.opensdf
+*.log
+.idea/
+.DS_Store
+Thumbs.db

@@ -20,28 +20,52 @@ void UTriggerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-    UE_LOG(LogTemp, Display, TEXT("Im working!"));
-	
+    // UE_LOG(LogTemp, Display, TEXT("Im working!"));
 }
 
 
 // Called every frame
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-    UE_LOG(LogTemp, Display, TEXT("Hello"));
+    // UE_LOG(LogTemp, Display, TEXT("Hello"));
+    AActor* AcceptedActor = AcceptableActor();
 
+    if(AcceptedActor)
+    {
+        UE_LOG(LogTemp, Display, TEXT("Acceted"));
+        Mover->SetShouldMove(true);
+    }
+    else
+    {
+
+    }
+
+}
+
+
+void UTriggerComponent::SetMover(UMover* NewMover)
+{
+    Mover = NewMover;
+}
+
+
+AActor* UTriggerComponent::AcceptableActor() const
+{
     TArray<AActor*> Actors;
     GetOverlappingActors(Actors);
 
     if(Actors.Num() > 0)
     {
-        UE_LOG(LogTemp, Display, TEXT("First element of the array : %s") , *Actors[0]->GetActorNameOrLabel());
+        // UE_LOG(LogTemp, Display, TEXT("First element of the array : %s") , *Actors[0]->GetActorNameOrLabel());
+        for (AActor* Actor : Actors)
+        {
+            if(Actor->ActorHasTag(TagName))
+            {
+                UE_LOG(LogTemp, Display, TEXT("Actor Name : %s") , *Actor->GetActorNameOrLabel());
+                return Actor;
+            }
+        }
     }
-}
+    return nullptr;
 
-
-bool UTriggerComponent::OpenSecretDoor(bool& ShouldOpen)
-{
-    ShouldOpen = true;
-    return ShouldOpen;
 }

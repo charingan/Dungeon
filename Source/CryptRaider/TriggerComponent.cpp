@@ -32,12 +32,18 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
     if(AcceptedActor)
     {
-        UE_LOG(LogTemp, Display, TEXT("Acceted"));
+        UE_LOG(LogTemp, Display, TEXT("Accepted"));
+        UPrimitiveComponent* Component = Cast<UPrimitiveComponent>(AcceptedActor->GetRootComponent());
+        if(Component)
+        {
+            Component->SetSimulatePhysics(false);
+        }
+        AcceptedActor->AttachToComponent(this , FAttachmentTransformRules::KeepWorldTransform);
         Mover->SetShouldMove(true);
     }
     else
     {
-
+        Mover->SetShouldMove(false);
     }
 
 }
